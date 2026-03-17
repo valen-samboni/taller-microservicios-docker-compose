@@ -13,9 +13,11 @@ services:
     working_dir: /app
     volumes:
       - ./backend:/app
-    command: ["node", "app.js"]
+    command: sh -c "npm install && node app.js"
     ports:
       - "3000:3000"
+    depends_on:
+      - database
 
   database:
     image: mysql:5.7
