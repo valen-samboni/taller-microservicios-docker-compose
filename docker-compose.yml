@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+
+  frontend:
+    image: nginx
+    ports:
+      - "8080:80"
+
+  backend:
+    image: node:18
+    container_name: backend_app
+    working_dir: /app
+    volumes:
+      - ./backend:/app
+    command: ["node", "app.js"]
+    ports:
+      - "3000:3000"
+
+  database:
+    image: mysql:5.7
+    container_name: mysql_db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: tienda
+    ports:
+      - "3306:3306"
