@@ -1,5 +1,8 @@
 # Sistema: Plataforma de productos (tipo e-commerce básico)
 
+## Descripción: 
+Se desarrolló un sistema básico tipo e-commerce utilizando arquitectura de microservicios con Docker Compose, compuesto por frontend, backend y base de datos.
+
 ## Servicios
 
 1. Frontend (web)
@@ -13,11 +16,39 @@ Almacena la información de productos.
 
 ## Comunicación
 
-- Frontend -> Backend (HTTP)
-- Backend -> Base de datos (conexión interna)
+- Frontend: Backend mediante HTTP
+- Backend: Base de datos mediante red interna de Docker
 
 ## Si un servicio falla
 
 - Si falla el backend: el frontend no carga datos
 - Si falla la base de datos: el backend no puede responder
-- Si falla el frontend: el usuario no puede acceder
+- Si falla el frontend: el usuario no puede acceder a la aplicación
+
+## Ventajas
+- Escalabilidad
+- Independencia de servicios
+- Fácil mantenimiento
+
+## Ejecución
+1. abrir terminal en la carpeta del proyecto
+2. ejecutar el siguiente comando: 
+    docker-compose up --build
+3. Esperar a que los contenedores se levanten correctamente
+
+## Acceso
+- Frontend: http://localhost:8080
+- Backende: http://localhost:3000
+
+## Base de datos
+Motor: MySQL
+Base de satos: tienda
+Puerto: 3306
+
+## Exploración
+- variables de entorno definidas con evironment
+- Conexión backend: base de datos usando host database
+- Posibles errores:
+    Credenciales incorrectas
+    Contenedor detenido
+    Puerto en uso
