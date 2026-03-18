@@ -38,7 +38,23 @@ Almacena la información de productos.
 
 ## Acceso
 - Frontend: http://localhost:8080
-- Backende: http://localhost:3000
+- Backend: http://localhost:3000
+- Para verificar la base de datos:
+    en la terminal:
+        docker exec -it database mysql -u root -p
+    escribir contraseña
+        root
+    en la terminal SQL:
+        SHOW DATABASES;
+
+- Para verificar conexion backend + DB:
+    Ver los logs del backend:
+        docker logs backend_app
+    si No hay errores la conexión es correcta aparece 
+        found 0 vulnerabilities
+        Servidor corriendo en puerto 3000
+        Conectado a MySQL
+    si hay errores como "ECONNREFUSED" o "Cannot connect to MySQL" entonces falla la conexión
 
 ## Base de datos
 Motor: MySQL
