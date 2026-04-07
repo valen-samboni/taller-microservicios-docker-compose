@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Spa - Servicios</title>
+
+<style>
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to right, #ffeef5, #fff0f5);
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: #d63384;
+}
+
+.contenedor {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 20px;
+    width: 220px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    text-align: center;
+    transition: transform 0.3s;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.card h3 {
+    color: #ff69b4;
+}
+
+.precio {
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+button {
+    background: linear-gradient(45deg, #ffb6c1, #ff69b4);
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    color: white;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+.carrito {
+    margin-top: 40px;
+    padding: 20px;
+    background: white;
+    border-radius: 20px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
+
+.item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.eliminar {
+    background: #ff4d6d;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+}
+
+.total {
+    margin-top: 15px;
+    font-weight: bold;
+    font-size: 18px;
+    text-align: right;
+}
+
+.vaciar {
+    margin-top: 10px;
+    width: 100%;
+    background: #d63384;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Servicios del SPA 💅</h1>
+
+<div class="contenedor" id="servicios"></div>
+
+<div class="carrito">
+    <h2>Carrito 🛍️</h2>
+    <ul id="lista"></ul>
+
+    <div class="total" id="total">Total: $0</div>
+
+    <button class="vaciar" onclick="vaciarCarrito()">Vaciar carrito</button>
+</div>
+
+<script>
+const contenedor = document.getElementById('servicios');
+const lista = document.getElementById('lista');
+const totalHTML = document.getElementById('total');
+
+// Precios
+const precios = {
+    "pestañas pelo a pelo": 80000,
+    "diseño de cejas": 30000,
+    "limpieza facial": 60000,
+    "uñas acrilicas": 90000,
+    "masaje relajante": 70000
+};
+
+// Carrito 
+let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+
+function guardar() {
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+}
+
+function calcularTotal() {
+    let total = 0;
+
+    carrito.forEach(item => {
+        const nombre = item.toLowerCase().trim();
+        total += precios[nombre];
+    });
+
+    totalHTML.textContent = "Total: $" + total;
+}
+
+function render() {
+    lista.innerHTML = '';
+
+    carrito.forEach((item, index) => {
+        const nombre = item.toLowerCase().trim();
+
+        const li = document.createElement('li');
+        li.classList.add('item');
+
+        li.innerHTML = `
+            ${item} - $${precios[nombre]}
+            <button class="eliminar" onclick="eliminar(${index})">❌</button>
+        `;
+
+        lista.appendChild(li);
+    });
+
+    calcularTotal();
+}
+
+function agregar(nombreOriginal) {
+    carrito.push(nombreOriginal);
+    guardar();
+    render();
+}
+
+function eliminar(index) {
+    carrito.splice(index, 1);
+    guardar();
+    render();
+}
+
+function vaciarCarrito() {
+    carrito = [];
+    guardar();
+    render();
+}
+
+// Cargar servicios desde backend
+fetch('http://localhost:3000/servicios')
+    .then(res => res.json())
+    .then(data => {
+        data.forEach(servicio => {
+
+            const nombreOriginal = servicio.nombre;
+            const nombre = nombreOriginal.toLowerCase().trim();
+
+            const card = document.createElement('div');
+            card.classList.add('card');
+
+            card.innerHTML = `
+                <h3>${nombreOriginal}</h3>
+                <p class="precio">$${precios[nombre]}</p>
+                <button onclick="agregar('${nombreOriginal}')">
+                    Agregar
+                </button>
+            `;
+
+            contenedor.appendChild(card);
+        });
+    });
+
+render();
+</script>
+
+</body>
+</html>
