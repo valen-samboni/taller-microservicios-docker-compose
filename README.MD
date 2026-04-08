@@ -107,3 +107,15 @@ Puerto: 3306
     - Node.js
     - MySQL
     - HTML. CSS, JavaScript    
+
+## ANÁLISIS
+
+1 ¿Cuál es el rol de cada servicio?
+    El sistema está compuesto por tres servicios principales, cada uno con una función específica:
+        - Frontend: Se encarga de la interacción con el usuario. Permite visualizar los servicios disponibles, seleccionarlos y gestionarlos en un carrito. Está desarrollado con HTML, CSS y JavaScript.
+        - Backend: Gestiona la lógica del sistema. Recibe las solicitudes del frontend, consulta la base de datos y devuelve la información necesaria mediante endpoints HTTP.
+        - Bases de datos: (MySQL): Almacena la información de los servicios ofrecidos por el spa, como su nombre.
+    Esta separación permite que cada componente cumple una función específica dentro del sistema    
+
+2 ¿Qué ventajas tiene dividir el sistema?
+3 ¿Cómo se comunican los contenedores?
