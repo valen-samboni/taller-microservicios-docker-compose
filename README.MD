@@ -124,5 +124,9 @@ Puerto: 3306
         - Flexibilidad: Se puede modificar o actualizar componentes sin tener que cambiar todo el sistema.
         - Despliegue independiente: Cada servicio puede ejecutarse y actualizarse por separado.
     Esto hace que el sistema sea más organizado, modular y fácil de gestionar.
-    
+
 3 ¿Cómo se comunican los contenedores?
+    Los contenedores se comunican entre sí a través de una red interna creada automáticamente por Docker Compose
+        - El frontend se comunica con el backend mediante peticiones HTTP, como por ejemplo usando fetch.
+        - El backend se conecta con la base de datos utilizando el nombre del servicio como host.
+    Docker Compose permite que los contenedores se reconozcan entre sí por su nombre, facilitando la comunicación sin necesidad de configuraciones complejas de red.    
