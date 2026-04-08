@@ -107,3 +107,5 @@ Puerto: 3306
     - Node.js
     - MySQL
     - HTML. CSS, JavaScript    
+
+## ANÁLISIS
