@@ -118,4 +118,11 @@ Puerto: 3306
     Esta separación permite que cada componente cumple una función específica dentro del sistema    
 
 2 ¿Qué ventajas tiene dividir el sistema?
+    dividir el sistema en varios servicios ofrece ventajas:
+        - Escalabilidad: cada servicio puede crecer de manera independiente segun la necesidad.
+        - Mantenimiento: Es más fácil detectar y corregir errores en un servicio sin afectar a los demás.
+        - Flexibilidad: Se puede modificar o actualizar componentes sin tener que cambiar todo el sistema.
+        - Despliegue independiente: Cada servicio puede ejecutarse y actualizarse por separado.
+    Esto hace que el sistema sea más organizado, modular y fácil de gestionar.
+    
 3 ¿Cómo se comunican los contenedores?
